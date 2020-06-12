@@ -1,0 +1,33 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "itransition task",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "js"
+  ],
+  "author": "CasperCarver <pigulevsky.gleb@ya.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.9.18",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "handlebars": "^4.7.6",
+    "nodemon": "^2.0.4"
+  }
+}

@@ -1,0 +1,25 @@
+
+<h2>Games</h2>
+
+
+  <form method="POST" class="form" action="/addgame">
+    <button type="submit" class="btn btn-small">Start New Game</button>
+    <input type="hidden" name="actLogin" value="{{user_id}}" name="id">
+  </form>
+
+
+  {{#if games.length}}
+<table class="striped centered">
+ 
+  
+  {{#each games}}
+  <tr>
+    <td>{{this.dateRegistration}}</td>
+  </tr>
+  {{/each}}
+</table>
+  
+
+{{else}}
+<p>No games!</p>
+{{/if}}
