@@ -5,3 +5,20 @@
   margin-top: 3px;
   height:  25px;
 }
+
+.game-board {
+  width:  250px;
+  height: 250px;
+}
+.game-board__cell {
+  border: 1px solid black;
+}
+
+
+.game-board__cell--red {
+  background: red;
+}
+
+.game-board__cell--blue {
+  background: blue;
+}

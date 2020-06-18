@@ -14,7 +14,11 @@
   
   {{#each games}}
   <tr>
-    <td>{{this.dateRegistration}}</td>
+    <td><form action="/game?id={{_id}}" method="GET">
+    {{!-- <input type="hidden" name="id" value="{{this._id}}"> --}}
+      {{this.dateRegistration}}
+      <button type="submit" class="btn btn-small">Enter the game</button>
+      </form></td>
   </tr>
   {{/each}}
 </table>
@@ -23,3 +27,5 @@
 {{else}}
 <p>No games!</p>
 {{/if}}
+
+

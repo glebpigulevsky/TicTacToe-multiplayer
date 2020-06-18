@@ -8,15 +8,23 @@ const flash = require('connect-flash');
 const bodyparser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
+
+const Turn = require('./models/Turns');
+
 //Passport config
 require('./config/passport')(passport);
 
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 
 
-const PORT = process.env.PORT || 9010;
+const PORT = process.env.PORT || 8010;
+
 
 const app = express();
+
+const http = require('http').Server(app);
+const client = require('socket.io')(http);
+
 const hbs = exphbs.create({
   defaultLayout: 'main',
   extname: 'hbs',
@@ -45,7 +53,6 @@ app.use(session({
 
 //Passport middleware
 
-
 app.use(flash());
 
 app.use(function (req, res, next) {
@@ -54,22 +61,43 @@ app.use(function (req, res, next) {
   }
 });
 
-// app.use(function(req, res, next) {
-//   res.locals.success_msg = req.flash('success_msg');
-//   res.locals.error_msg = req.flash('error_msg');
-//   res.locals.error = req.flash('error');
-//   next();
-// });
-
 async function start(){
   try {
     await mongoose.connect('mongodb+srv://Casper:carver2017@cluster0-yboyt.mongodb.net/users', {
       useNewUrlParser: true,
       useFindAndModify: false
     })
-    app.listen(PORT, () => {
-      console.log('Server has been started...');
-    })
+    // app.listen(PORT, () => {
+    //   console.log('Server has been started...');
+    // })
+    //const server = http.createServer(app);
+
+    var server = http.listen(PORT, () => {
+      console.log('server is running on port', server.address().port);
+    });
+
+    
+    // server.listen(PORT, () => {
+    //     console.log('Server has been started...');
+    //   })
+
+
+    client.on('connection', function(socket){
+        
+      socket.on('turn', function(data){
+        
+        const turn = new Turn({
+          gameId: 1,
+          player: 2,
+          turn: data.turn,
+        });
+        console.log(turn);
+        turn.save();
+        socket.broadcast.emit('addturn', data);
+        }
+    );
+    });
+    
   } catch (e) {
     console.log('error to connect');
     console.log(e);

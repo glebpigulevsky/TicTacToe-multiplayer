@@ -1,1 +1,48 @@
 <h4>Game</h4>
+ <table class="game-board">
+        <tr>
+          <td class="game-board__cell" data-id="0"></td>
+          <td class="game-board__cell" data-id="1"></td>
+          <td class="game-board__cell" data-id="2"></td>
+        </tr>
+        <tr>
+          <td class="game-board__cell" data-id="3"></td>
+          <td class="game-board__cell" data-id="4"></td>
+          <td class="game-board__cell" data-id="5"></td>
+        </tr>
+        <tr>
+          <td class="game-board__cell" data-id="6"></td>
+          <td class="game-board__cell" data-id="7"></td>
+          <td class="game-board__cell" data-id="8"></td>
+        </tr>
+  </table>
+
+
+
+  <script>
+  (function(){
+    //const PORT = process.env.PATH || 8010;
+    //const socket = io.connect('localhost:8010');
+    
+    const socket = io();
+
+    if(socket !== undefined){
+      console.log('Connected to socket...');
+      } else console.log('Err to connections to socket...');
+    
+    socket.on('addturn', (turn) => {
+      console.log(turn.turn);
+      document.querySelector(`.game-board__cell[data-id='${turn.turn}']`).
+      classList.add('game-board__cell--blue');
+    })
+    
+    document.querySelector('.game-board').addEventListener('click', (e) => {
+      if (e.target.classList.contains('game-board__cell')){
+        e.target.classList.add('game-board__cell--blue')
+        socket.emit('turn', {
+          turn: e.target.getAttribute("data-id")
+        });
+      }
+    })
+  })();
+</script>

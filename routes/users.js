@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
 
+
+
 router.get('/', async (req, res) => {
   const user = await User.find({});
   res.render('index', {
@@ -14,7 +16,8 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/game', async (req, res) => {
-  const game = await Game.find({});
+  const game = await Game.findById(req.query.id);
+
   res.render('game', {
     game
   });
@@ -58,7 +61,7 @@ router.post('/register', async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   })
-  console.log(user);
+  
   //Hash Password
   
    await bcrypt.genSalt(10, async (err, salt) => {
@@ -86,7 +89,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res, next) => {
   const user = await User.find({});
   //const actUser = user.findOne({email: req.body.email });
-  console.log(user);
+  
   passport.authenticate('local', {
     successRedirect: '/users?user_id=' + user[0].id,
     failureRedirect: '/login?',
