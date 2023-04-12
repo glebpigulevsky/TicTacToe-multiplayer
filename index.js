@@ -67,20 +67,10 @@ async function start(){
       useNewUrlParser: true,
       useFindAndModify: false
     })
-    // app.listen(PORT, () => {
-    //   console.log('Server has been started...');
-    // })
-    //const server = http.createServer(app);
 
     var server = http.listen(PORT, () => {
       console.log('server is running on port', server.address().port);
     });
-
-    
-    // server.listen(PORT, () => {
-    //     console.log('Server has been started...');
-    //   })
-
 
     client.on('connection', function(socket){
         
