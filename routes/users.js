@@ -5,9 +5,6 @@ const router = Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
-
-
-
 router.get('/', async (req, res) => {
   const user = await User.find({});
   res.render('index', {
@@ -63,7 +60,6 @@ router.post('/register', async (req, res) => {
   })
   
   //Hash Password
-  
    await bcrypt.genSalt(10, async (err, salt) => {
     
     await bcrypt.hash(user.password, salt, async (err, hash) => {
@@ -78,13 +74,9 @@ router.post('/register', async (req, res) => {
       .catch( err => console.log(err));
     })
   })
-
   }
   })
 })
-
-
-
 
 router.post('/login', async (req, res, next) => {
   const user = await User.find({});
@@ -126,9 +118,4 @@ router.post('/addgame', async (req, res) => {
   res.redirect('/game');
 })
 
-
-
-
-
 module.exports = router;
-
